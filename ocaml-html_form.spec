@@ -2,6 +2,12 @@
 %define version	0.1
 %define release	%mkrel 1
 
+%if %mdkversion >= 200900
+%define ocaml_libdir %{_libdir}/ocaml
+%else
+%define ocaml_libdir %{ocaml_sitelib}
+%endif
+
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
@@ -38,10 +44,10 @@ make all
 rm -rf %{buildroot}
 make \
     INSTALL_BINDIR=%{buildroot}%{_bindir} \
-    INSTALL_LIBDIR=%{buildroot}%{ocaml_sitelib}/html_form \
+    INSTALL_LIBDIR=%{buildroot}%{ocaml_libdir}/html_form \
     install
 
-cp html_form_types.mli %{buildroot}%{ocaml_sitelib}/html_form
+cp html_form_types.mli %{buildroot}%{ocaml_libdir}/html_form
 mv -f %{buildroot}%{_bindir}/html_form.opt %{buildroot}%{_bindir}/html_form
 
 %clean
@@ -50,11 +56,12 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root)
 %{_bindir}/html_form
-%dir %{ocaml_sitelib}/html_form
-%{ocaml_sitelib}/html_form/*.cmi
+%dir %{ocaml_libdir}/html_form
+%{ocaml_libdir}/html_form/*.cmi
+%{ocaml_libdir}/html_form/*.cma
 
 %files devel
 %defattr(-,root,root)
-%{ocaml_sitelib}/html_form/*
-%exclude %{ocaml_sitelib}/html_form/*.cmi
-
+%{ocaml_libdir}/html_form/*.a
+%{ocaml_libdir}/html_form/*.cmxa
+%{ocaml_libdir}/html_form/*.mli
