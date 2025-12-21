@@ -16,6 +16,11 @@ Group:      Development/Other
 License:    MIT
 URL:        https://pauillac.inria.fr/~guesdon/Tools/Tars/
 Source0:    http://pauillac.inria.fr/~guesdon/Tools/Tars/html-form_snapshot.tar.gz
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:  ocaml >= 3.10.0
 BuildRequires:  glibc-static-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}
